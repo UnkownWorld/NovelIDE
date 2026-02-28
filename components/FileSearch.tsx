@@ -9,6 +9,7 @@ import { Search, X, File, FileText, Type, ChevronDown, ChevronUp } from 'lucide-
 import { useFileStore } from '../stores/fileStore';
 import { useUiStore } from '../stores/uiStore';
 import { getNodePath } from '../services/fileSystem';
+import { Sanitizer } from '../core/utils/Sanitizer';
 
 interface FileSearchProps {
   isOpen: boolean;
@@ -140,12 +141,10 @@ export const FileSearch: React.FC<FileSearchProps> = ({
   };
 
   const highlightMatch = (text: string, term: string) => {
-    if (!isCaseSensitive) {
-      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return text.replace(regex, '<mark class="bg-yellow-500/50 text-yellow-200 rounded px-0.5">$1</mark>');
-    }
-    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'g');
-    return text.replace(regex, '<mark class="bg-yellow-500/50 text-yellow-200 rounded px-0.5">$1</mark>');
+    return Sanitizer.highlightText(text, term, {
+      caseSensitive: isCaseSensitive,
+      highlightClass: "bg-yellow-500/50 text-yellow-200 rounded px-0.5"
+    });
   };
 
   if (!isOpen) return null;

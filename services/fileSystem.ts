@@ -1,4 +1,3 @@
-
 import { FileNode, FileType } from '../types';
 import {
   PROJECT_PROFILE_TEMPLATE,
@@ -14,9 +13,10 @@ import {
   SKILL_EDITOR_REVIEW,
   SKILL_HUMANIZER_STYLE
 } from './templates';
+import { generateId as generateUniqueId } from '../core/utils/IdGenerator';
 
-// 生成唯一ID
-export const generateId = (): string => Math.random().toString(36).substring(2, 9);
+// Re-export generateId for backward compatibility
+export const generateId = generateUniqueId;
 
 const createFolder = (name: string, parentId: string): FileNode => ({
   id: generateId(),
