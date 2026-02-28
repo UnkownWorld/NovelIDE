@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       // GitHub Pages base path
-      base: '/NovelIDE-Optimized/',
+      base: '/NovelIDE/',
       server: {
         port: 3000,
         host: '0.0.0.0',
